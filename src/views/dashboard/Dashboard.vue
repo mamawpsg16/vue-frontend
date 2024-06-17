@@ -6,9 +6,6 @@ import avatar4 from '@/assets/images/avatars/4.jpg'
 import avatar5 from '@/assets/images/avatars/5.jpg'
 import avatar6 from '@/assets/images/avatars/6.jpg'
 import MainChart from './MainChart.vue'
-import WidgetsStatsA from './../widgets/WidgetsStatsTypeA.vue'
-import WidgetsStatsD from './../widgets/WidgetsStatsTypeD.vue'
-
 const progressGroupExample1 = [
   { title: 'Monday', value1: 34, value2: 78 },
   { title: 'Tuesday', value1: 56, value2: 94 },
@@ -127,7 +124,6 @@ const tableExample = [
 
 <template>
   <div>
-    <WidgetsStatsA class="mb-4" />
     <CRow>
       <CCol :md="12">
         <CCard class="mb-4">
@@ -194,7 +190,6 @@ const tableExample = [
         </CCard>
       </CCol>
     </CRow>
-    <WidgetsStatsD class="mb-4" />
     <CRow>
       <CCol :md="12">
         <CCard class="mb-4">

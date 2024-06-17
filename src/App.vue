@@ -1,13 +1,15 @@
 <script setup>
-import { onBeforeMount } from 'vue'
+import { onBeforeMount, onMounted } from 'vue'
 import { useColorModes } from '@coreui/vue'
-
+import DefaultLayout from '@/layouts/DefaultLayout'
+import { useLayoutStore } from '@/stores/layout.js';
 import { useThemeStore } from '@/stores/theme.js'
 
 const { isColorModeSet, setColorMode } = useColorModes(
   'coreui-free-vue-admin-template-theme',
 )
 const currentTheme = useThemeStore()
+const layoutStore = useLayoutStore()
 
 onBeforeMount(() => {
   const urlParams = new URLSearchParams(window.location.href.split('?')[1])
@@ -27,11 +29,22 @@ onBeforeMount(() => {
   }
 
   setColorMode(currentTheme.theme)
+  
+  const layoutStore = useLayoutStore();
+  layoutStore.setLayout({
+    header: true,
+    sidebar: true,
+    footer: true,
+  });
+
+
+
 })
+
 </script>
 
 <template>
-  <router-view />
+  <DefaultLayout/>
 </template>
 
 <style lang="scss">
