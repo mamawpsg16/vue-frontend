@@ -1,1 +1,78 @@
 // Here you can add other styles
+
+//COREUI LINK
+a:-webkit-any-link{
+    text-decoration: none !important;
+}
+
+.sidebar-nav-item, .nav-group-toggle{
+    margin-bottom:2px !important;
+}
+
+
+.sidebar{
+    z-index: 1 !important;
+}
+
+.vgt-global-search{
+    padding: 10px 20px !important;
+}
+.btn{
+    border-color:transparent !important;
+}
+// MULTISELECT
+.multiselect__tags {
+    padding-left: 8px !important;
+    padding-top: 8px!important;
+}
+
+.dark-mode {
+    .multiselect__tags,  .multiselect__input,.multiselect__spinner, .multiselect__single, input{
+        color: #bec8d5 !important;
+        background-color: #171e28 !important;
+        border-color: #2e3c51 !important;
+    } 
+}
+
+[data-coreui-theme="dark"] {
+    .multiselect__tags, 
+    .multiselect__input, 
+    .multiselect__spinner, 
+    .multiselect__single, 
+    .swal2-popup, 
+    .vgt-wrap, 
+    .vgt-table, 
+    .vgt-table th,
+    .vgt-table thead th,
+    .vgt-global-search,
+    .vgt-wrap__footer,
+    .vgt-input,
+    .vgt-clearfix,
+    .vgt-inner-wrap,
+    .input__icon,
+    .vgt-table td{
+        background:none;
+        background-color: var(--cui-body-bg) !important;
+        color: var(--cui-body-color) !important;
+        border-color: #2e3c51 !important;
+    }
+    .btn-default{
+        background-color: #6261cc !important;
+    }
+}
+[data-coreui-theme="light"] {
+    .vgt-wrap, 
+    .vgt-table, 
+    .vgt-table th,
+    .vgt-table thead th,
+    .vgt-global-search,
+    .vgt-wrap__footer,
+    .vgt-input,
+    .vgt-clearfix,
+    .vgt-inner-wrap,
+    .input__icon,
+    .vgt-table tbody{
+        background:none;
+        // background-color: var(--cui-tertiary-bg)!important;
+    }
+}

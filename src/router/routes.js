@@ -1,58 +1,71 @@
-import { h, resolveComponent } from 'vue'
-import DefaultLayout from '@/layouts/DefaultLayout'
-
-
 export default [
+    { path: '/:pathMatch(.*)*', name: 'PageNotFound', component: () => import('@/views/pages/Page404.vue') },
     {
       path: '/',
       name: 'Home',
-      // component: DefaultLayout,
+      meta: { requiresAuth: true },
+      component: () => import('@/layouts/DefaultLayout.vue'),
       redirect: '/dashboard',
       children: [
-            {
-            path: '/dashboard',
-            name: 'Dashboard',
-            // route level code-splitting
-            // this generates a separate chunk (about.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
-            component: () =>
-                import(
-                /* webpackChunkName: "dashboard" */ '@/views/dashboard/Dashboard.vue'
-                ),
+            // ADMIN routes
+            { 
+              path: '/admin',
+              name: 'Admin',
+              meta:{ parent:true },
+              children: [
+                {
+                  path: 'users',
+                  component: () => import('@/views/admin/user/Index.vue'),
+                  name: 'admin-users',
+                  meta: { requiresAuth: true }
+                },
+              ],
             },
+            {
+              path: 'dashboard',
+              name: 'dashboard',
+              component: () =>import('@/views/dashboard/Dashboard.vue')
+            },
+            {
+              path: 'task',
+              name: 'task',
+              component: () => import('@/views/task/Index.vue'),
+            },
+            {
+              path: '/report',
+              name: 'Report',
+              meta:{ parent:true },
+              children: [
+                {
+                  path: '',
+                  component: () => import('@/views/report/Index.vue'),
+                  name: 'monitoring',
+                  meta: { requiresAuth: true }
+                },
+                {
+                  path: ':uuid',
+                  component: () => import('@/views/report/Details.vue'),
+                  name: 'report-details',
+                  meta: { requiresAuth: true }
+                },
+              ],
+            },
+            {
+              path: 'report',
+              name: 'report',
+              component: () =>import('@/views/report/Index.vue')
+            },
+           
           ],
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/views/pages/Login'),
+      component: () => import('@/views/authentication/Login.vue'),
     },
     {
       path: '/register',
       name: 'register',
-      component: () => import('@/views/pages/Register'),
-    },
-    {
-      path: '/pages',
-      redirect: '/pages/404',
-      name: 'Pages',
-      component: {
-        render() {
-          return h(resolveComponent('router-view'))
-        },
-      },
-      children: [
-        {
-          path: '404',
-          name: 'Page404',
-          component: () => import('@/views/pages/Page404'),
-        },
-        {
-          path: '500',
-          name: 'Page500',
-          component: () => import('@/views/pages/Page500'),
-        },
-       
-      ],
+      component: () => import('@/views/authentication/Register.vue'),
     },
   ]

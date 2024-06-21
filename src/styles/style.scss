@@ -7,6 +7,14 @@
 
 // Vendors
 @import "vendors/simplebar";
+@import "nprogress/nprogress.css";
+@import 'sweetalert2/src/sweetalert2.scss';
+@import 'flatpickr/dist/flatpickr.css';
+@import 'vue-multiselect/dist/vue-multiselect.css';
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'vue-good-table-next/dist/vue-good-table-next.css';
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+@import 'viewerjs/dist/viewer.css';
 
 // Custom styles for this theme
 @import "theme";

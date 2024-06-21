@@ -1,9 +1,3 @@
-<script setup>
-import avatar from '@/assets/images/avatars/8.jpg'
-
-const itemsCount = 42
-</script>
-
 <template>
   <CDropdown placement="bottom-end" variant="nav-item">
     <CDropdownToggle class="py-0 pe-0" :caret="false">
@@ -50,7 +44,19 @@ const itemsCount = 42
       </CDropdownItem>
       <CDropdownDivider />
       <CDropdownItem> <CIcon icon="cil-shield-alt" /> Lock Account </CDropdownItem>
-      <CDropdownItem> <CIcon icon="cil-lock-locked" /> Logout </CDropdownItem>
+      <CDropdownItem @click="logout" > <CIcon icon="cil-lock-locked" /> Logout </CDropdownItem>
     </CDropdownMenu>
   </CDropdown>
 </template>
+
+<script setup>
+import avatar from '@/assets/images/avatars/8.jpg'
+import { useAuthStore } from '@/stores/auth-store.js';
+
+const logout = () => useAuthStore().logout();
+
+const itemsCount = 42
+</script>
+
+
+

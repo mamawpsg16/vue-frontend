@@ -64,6 +64,7 @@ const AppSidebarNav = defineComponent({
             ...(firstRender.value && {
               visible: item.items.some((child) => isActiveItem(route, child)),
             }),
+            class:'sidebar-nav-item'
           },
           {
             togglerContent: () => [
@@ -71,9 +72,10 @@ const AppSidebarNav = defineComponent({
                 customClassName: 'nav-icon',
                 name: item.icon,
               }),
+   
               item.name,
             ],
-            default: () => item.items.map((child) => renderItem(child)),
+              default: () => item.items.map((child) => renderItem(child)),
           },
         )
       }
@@ -83,7 +85,8 @@ const AppSidebarNav = defineComponent({
             RouterLink,
             {
               to: item.to,
-              custom: true,
+              custom: false,
+              class:'sidebar-nav-item'
             },
             {
               default: (props) =>
@@ -93,16 +96,22 @@ const AppSidebarNav = defineComponent({
                     active: props.isActive,
                     as: 'div',
                     href: props.href,
-                    onClick: () => props.navigate(),
+                    class: 'sidebar-nav-item'
                   },
                   {
                     default: () => [
-                      item.icon
+                      item.icon && item.icon.includes('cil-')
                         ? h(resolveComponent('CIcon'), {
-                            customClassName: 'nav-icon',
+                            customClassName: 'nav-icon sidebar-nav-item',
                             name: item.icon,
                           })
-                        : h('span', { class: 'nav-icon' }, h('span', { class: 'nav-icon-bullet' })),
+                        : item.icon && !item.icon.includes('cil-')
+                        ?  h('i', {
+                            class: `nav-icon sidebar-nav-item ${item.icon}`,
+                            name: item.icon,
+                          })
+                        : "",
+                        h('span', { class: 'nav-icon' }, h('span', { class: 'nav-icon-bullet' })),
                       item.name,
                       item.badge &&
                         h(
@@ -124,6 +133,7 @@ const AppSidebarNav = defineComponent({
             resolveComponent(item.component),
             {
               as: 'div',
+              class:'sidebar-nav-item'
             },
             {
               default: () => item.name,
@@ -136,6 +146,7 @@ const AppSidebarNav = defineComponent({
         CSidebarNav,
         {
           as: simplebar,
+          class:'sidebar-nav-item'
         },
         {
           default: () => nav.map((item) => renderItem(item)),

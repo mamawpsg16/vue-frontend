@@ -12,7 +12,6 @@ const sidebar = useSidebarStore()
 <template>
   <CSidebar
     class="border-end"
-    colorScheme="dark"
     position="fixed"
     :unfoldable="sidebar.unfoldable"
     :visible="sidebar.visible"
@@ -28,8 +27,8 @@ const sidebar = useSidebarStore()
       <CCloseButton class="d-lg-none" dark @click="sidebar.toggleVisible()" />
     </CSidebarHeader>
     <AppSidebarNav />
-    <CSidebarFooter class="border-top d-none d-lg-flex">
-      <CSidebarToggler @click="sidebar.toggleUnfoldable()" />
-    </CSidebarFooter>
+    <!-- <CSidebarFooter class="border-top d-none d-lg-flex"> -->
+      <!-- <CSidebarToggler @click="sidebar.toggleUnfoldable()" /> -->
+    <!-- </CSidebarFooter> -->
   </CSidebar>
 </template>

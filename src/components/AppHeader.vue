@@ -27,7 +27,7 @@ onMounted(() => {
       <CHeaderToggler @click="sidebar.toggleVisible()" style="margin-inline-start: -14px">
         <CIcon icon="cil-menu" size="lg" />
       </CHeaderToggler>
-      <CHeaderNav class="d-none d-md-flex">
+      <!-- <CHeaderNav class="d-none d-md-flex">
         <CNavItem>
           <CNavLink href="/dashboard"> Dashboard </CNavLink>
         </CNavItem>
@@ -37,8 +37,8 @@ onMounted(() => {
         <CNavItem>
           <CNavLink href="#">Settings</CNavLink>
         </CNavItem>
-      </CHeaderNav>
-      <CHeaderNav class="ms-auto">
+      </CHeaderNav> -->
+      <!-- <CHeaderNav class="ms-auto">
         <CNavItem>
           <CNavLink href="#">
             <CIcon icon="cil-bell" size="lg" />
@@ -54,7 +54,7 @@ onMounted(() => {
             <CIcon icon="cil-envelope-open" size="lg" />
           </CNavLink>
         </CNavItem>
-      </CHeaderNav>
+      </CHeaderNav> -->
       <CHeaderNav>
         <li class="nav-item py-1">
           <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
@@ -84,7 +84,7 @@ onMounted(() => {
             >
               <CIcon class="me-2" icon="cil-moon" size="lg" /> Dark
             </CDropdownItem>
-            <CDropdownItem
+            <!-- <CDropdownItem
               :active="colorMode === 'auto'"
               class="d-flex align-items-center"
               component="button"
@@ -92,7 +92,7 @@ onMounted(() => {
               @click="setColorMode('auto')"
             >
               <CIcon class="me-2" icon="cil-contrast" size="lg" /> Auto
-            </CDropdownItem>
+            </CDropdownItem> -->
           </CDropdownMenu>
         </CDropdown>
         <li class="nav-item py-1">
