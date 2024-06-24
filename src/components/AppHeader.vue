@@ -5,10 +5,12 @@ import { useColorModes } from '@coreui/vue'
 import AppBreadcrumb from '@/components/AppBreadcrumb.vue'
 import AppHeaderDropdownAccnt from '@/components/AppHeaderDropdownAccnt.vue'
 import { useSidebarStore } from '@/stores/sidebar.js'
+import { useAuthStore } from '@/stores/auth-store.js'
 
 const headerClassNames = ref('mb-4 p-0')
 const { colorMode, setColorMode } = useColorModes('coreui-free-vue-admin-template-theme')
 const sidebar = useSidebarStore()
+const authStore = useAuthStore()
 
 onMounted(() => {
   document.addEventListener('scroll', () => {
@@ -55,7 +57,10 @@ onMounted(() => {
           </CNavLink>
         </CNavItem>
       </CHeaderNav> -->
-      <CHeaderNav>
+      <CHeaderNav class="d-flex align-items-center">
+        <li>
+        <span style="margin:0px;" class="fw-semibold"> {{authStore.userName}}</span>
+        </li>
         <li class="nav-item py-1">
           <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
         </li>

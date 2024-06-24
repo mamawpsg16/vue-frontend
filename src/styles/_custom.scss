@@ -9,10 +9,16 @@ a:-webkit-any-link{
     margin-bottom:2px !important;
 }
 
-
-.sidebar{
+.sidebar {
     z-index: 1 !important;
 }
+
+@media only screen and (max-width: 768px) {
+    .sidebar {
+        z-index: 9999 !important;
+    }
+}
+
 
 .vgt-global-search{
     padding: 10px 20px !important;

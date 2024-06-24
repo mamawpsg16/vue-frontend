@@ -1,7 +1,7 @@
 <template>
    <div class="mx-auto border border-gray-300 rounded-lg p-3" >
         <div class="d-flex justify-content-between">
-            <button class="btn btn-sm text-center mb-2 px-2" title="Conversations" @click="showConversation()"><i class="bi bi-envelope action" style="font-size:20px;"></i></button>
+            <button class="btn btn-sm text-center mb-2 px-2" title="Conversations" @click="showConversation()" :disabled="!details.length <= 0"><CIcon :icon="cilEnvelopeClosed" /></button>
             <h4>Report</h4>
             <span></span>
         </div>
@@ -27,27 +27,27 @@
             <span v-else class="fw-bold">No Uploaded Images</span>
             <viewer :images="images" @inited="inited" class="viewer" ref="viewer" :options="viewerOptions">
               <template #default="scope">
-                <img v-for="src in scope.images" :src="`${backend_domain}${src}`" :key="src" style="display:none !important"/>
+                <img v-for="src in scope.images" :src="src" :key="src" style="display:none !important"/>
               </template>
             </viewer>
         </div>
-        <!-- <reply :id="details.id"> </reply> -->
-        <!-- <conversations   :replies="replies" :id="details.id"/> -->
+        <reply :id="details.id"> </reply>
+        <conversations   :replies="replies" :id="details.id"/>
     </div>
 </template>
 
 <script>
-import { cilMagnifyingGlass } from '@coreui/icons';
+import { cilMagnifyingGlass, cilEnvelopeClosed } from '@coreui/icons';
 import formatter  from '@/helpers/formatter/transform.js';
 import Input from '@/components/Form/Input.vue'
 import apiClient from '@/helpers/http/api-client.js';
 import TextArea from '@/components/Form/TextArea.vue'
 import { component as Viewer } from "v-viewer"
 import { viewerOptions } from './viewerConfig.js';
-// import conversations from './components/conversations.vue';
+import conversations from './components/conversations.vue';
 import { checkValidity  } from '@/helpers/validation/vuelidate.js';
 import { useVuelidate } from '@vuelidate/core'
-// import reply from './components/reply.vue';
+import reply from './components/reply.vue';
     export default {
         setup () {
             return { v$: useVuelidate({ $autoDirty : true, $lazy: true}) }
@@ -56,12 +56,12 @@ import { useVuelidate } from '@vuelidate/core'
             Input,
             TextArea,
             Viewer,
-            // conversations,
-            // reply
+            conversations,
+            reply
         },
         data(){
             return{
-                cilMagnifyingGlass,
+                cilMagnifyingGlass,cilEnvelopeClosed,
                 viewerOptions:viewerOptions,
                 comments: [
                     { id: 1, author: 'Alice', text: 'This is a great post!', date: '2023-06-11' },
@@ -120,7 +120,7 @@ import { useVuelidate } from '@vuelidate/core'
             },
 
             getAttachments(attachments){
-                const images = attachments.map((attachment) => attachment.url);
+                const images = attachments.map((attachment) => import.meta.env.VITE_APP_API_URL + attachment.url);
                 this.images = images
             },
 
@@ -160,7 +160,7 @@ import { useVuelidate } from '@vuelidate/core'
             },
 
             async showConversation(){
-                await this.getConversations();
+                const response = await this.getConversations();
                 const modal_id = document.getElementById("report-conversation-modal");
                 const modal = bootstrap.Modal.getOrCreateInstance(modal_id);
                 modal.show();

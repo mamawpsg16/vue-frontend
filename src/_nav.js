@@ -9,12 +9,19 @@ export default [
     component: 'CNavGroup',
     name: 'Admin',
     to: '/admin',
-    icon: 'cil-bell',
+    icon: 'fa-solid fa-user-tie',
     items: [
       {
         component: 'CNavItem',
-        name: 'User',
+        name: 'Users',
         to: '/admin/users',
+        icon: 'fa-solid fa-users',
+      },
+      {
+        component: 'CNavItem',
+        name: 'Report Monitoring',
+        to: '/report/monitoring',
+        icon: 'fa-solid fa-ticket',
       },
     ],
   },
@@ -27,7 +34,8 @@ export default [
   {
     component: 'CNavItem',
     name: 'Report',
-    to: '/report',
-    icon: 'fa-solid fa-user-tie',
+    to: '/report/create',
+    icon: 'fa-solid fa-ticket-simple',
   },
+
 ]

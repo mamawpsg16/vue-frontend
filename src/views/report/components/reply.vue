@@ -13,16 +13,16 @@
                 Message must only contain 1000 characters.
                 </span>
             </div>
-        <button class="btn btn-sm form-control bg-success-subtle my-2"   :disabled="isSending"> {{  isSending ? 'Sending' : 'Send' }} <i class="bi bi-send"></i></button>
+        <button class="btn btn-sm form-control bg-success-subtle my-2"   :disabled="isSending">{{  isSending ? 'Sending' : 'Send' }}</button>
     </form>
 </template>
 
 <script>
-import apiClient from '@js/helpers/apiClient.js';
-import { sweetAlertNotification } from '@js/helpers/sweetAlert.js';
-import TextArea from '@js/components/Form/TextArea.vue'
-import { checkValidity  } from '@js/helpers/Vuelidate.js';
-import formatter from '@js/helpers/formatter.js';
+import apiClient from '@/helpers/http/api-client.js';
+import { sweetAlertNotification } from '@/helpers/notification/sweetAlert.js';
+import TextArea from '@/components/Form/TextArea.vue'
+import { checkValidity  } from '@/helpers/validation/vuelidate.js';
+import formatter from '@/helpers/formatter/transform.js';
 import { useVuelidate } from '@vuelidate/core'
 import { required, maxLength, email } from '@vuelidate/validators';
     export default {
@@ -44,8 +44,8 @@ import { required, maxLength, email } from '@vuelidate/validators';
             TextArea,
         },
         data(){
-                return{
-                    errors:[{
+            return{
+                errors:[{
                     message:false,
                 }],
                 message:null,

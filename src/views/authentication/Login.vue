@@ -1,5 +1,6 @@
 <template>
   <ThemeColor/>
+  <ResetPasswordLink/>
   <div class="wrapper d-flex flex-row">
     <CContainer>
       <CRow class="justify-content-center">
@@ -35,16 +36,14 @@
                         <input id="remember" type="checkbox" v-model="form.remembered" class="form-check-input"/>
                         <label for="remember" class="form-check-label ms-1">Remember me</label>
                     </div>
-                    <CButton  color="link" class="px-0">
-                        Forgot password?
-                    </CButton>
+                    <button type="button" class="btn btn-md text-primary" @click="changePassword">Forgot password</button>
                   </div>
                   <div class="d-grid my-2">
                     <CButton color="primary" class="px-4 form-control" type="submit" :disabled="isLoggingIn">{{  isLoggingIn ? 'Logging In' : 'Login' }} </CButton>
                   </div>
                   <div class="d-flex align-items-center my-2">
                     <span class="text-body-secondary text-decoration-none">Dont have an account yet?</span>
-                    <CButton  color="link" class="px-0" @click="navigateRegister">
+                    <CButton  color="link" class="px-0" @click="navigateRegister" style="text-decoration:none;">
                       <span class="text-primary"  color="link">&nbsp;Register</span>
                     </CButton>
                   </div>
@@ -72,6 +71,8 @@ import { checkValidity, errors  } from '@/helpers/validation/vuelidate.js';
 import { useAuthStore } from '@/stores/auth-store.js';
 import callOptimization from '@/helpers/request-optimizer/callOptimization';
 import { sweetAlertNotification } from '@/helpers/notification/sweetAlert.js';
+import ResetPasswordLink from './ResetPasswordLink.vue';
+
 export default{
   setup() {
     const authStore = useAuthStore();
@@ -81,7 +82,8 @@ export default{
   },
 
   components:{
-    ThemeColor
+    ThemeColor,
+    ResetPasswordLink
   },
 
   data(){
@@ -96,7 +98,7 @@ export default{
       errors:{
         email:{},
         password:{},
-      }
+      },
     }
   },
 
@@ -108,7 +110,7 @@ export default{
       }
     }
   },
-
+  
   methods:{
     checkInputValidity(parentProperty = null, dataProperty, validations = []) {
       return checkValidity(this.v$, parentProperty, dataProperty, validations);
@@ -148,7 +150,12 @@ export default{
 
     navigateRegister(){
       this.$router.push({name:'register'});
-    }
+    },
+    changePassword(){
+        const modal_id = document.getElementById("reset-password-modal");
+        const modal = bootstrap.Modal.getOrCreateInstance(modal_id);
+        modal.show();
+    },
   },
 }
 </script>

@@ -11,7 +11,6 @@ import { iconsSet as icons } from '@/assets/icons'
 
 const app = createApp(App)
 app.use(createPinia())
-app.config.globalProperties.backend_domain = 'http://laravel-best-practices.org/'
 app.use(router)
 app.use(CoreuiVue)
 app.provide('icons', icons)

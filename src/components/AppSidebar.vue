@@ -5,12 +5,14 @@ import { logo } from '@/assets/brand/logo'
 import { sygnet } from '@/assets/brand/sygnet'
 import { AppSidebarNav } from '@/components/AppSidebarNav.js'
 import { useSidebarStore } from '@/stores/sidebar.js'
-
+import { useAuthStore } from '@/stores/auth-store';
 const sidebar = useSidebarStore()
+const authStore = useAuthStore()
 </script>
 
 <template>
   <CSidebar
+   v-if="authStore.isUserVerified"
     class="border-end"
     position="fixed"
     :unfoldable="sidebar.unfoldable"
@@ -22,6 +24,7 @@ const sidebar = useSidebarStore()
         <CSidebarBrand v-bind="$attrs" as="a" :href="href" @click="navigate">
           <CIcon custom-class-name="sidebar-brand-full" :icon="logo" :height="32" />
           <CIcon custom-class-name="sidebar-brand-narrow" :icon="sygnet" :height="32" />
+          <!-- Brand -->
         </CSidebarBrand>
       </RouterLink>
       <CCloseButton class="d-lg-none" dark @click="sidebar.toggleVisible()" />

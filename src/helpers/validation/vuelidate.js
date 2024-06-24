@@ -39,12 +39,12 @@ export const errors = function (v$, parentProperty = null, dataProperty, validat
     const data = parentProperty ? v$[parentProperty][dataProperty] : v$[dataProperty];
     if (data.$dirty) {
         for (const validation of validations) {
-            console.log(validation,'validation');
             const isInvalid = data.$invalid;
             if (isInvalid) {
                 for (let index = 0; index < data.$errors.length ; index++) {
-                    message = formatter.capitalizeFirstLetter(data.$errors[index].$message.replace("Value",data.$errors[index].$property).replace("This field",data.$errors[index].$property));
-                    if(validation == 'sameAsPassword'){
+                    let property = formatter.capitalizeSplitWord(data.$errors[index].$property)
+                    message = formatter.capitalizeFirstLetter(data.$errors[index].$message.replace("Value", property).replace("This field", property));
+                    if(validation == 'sameAsPassword' || data.$errors[index].$validator == 'sameAsPassword'){
                         message = "Password Confirmation do not match password";
                     }
                     invalid.push(message);

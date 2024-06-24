@@ -64,15 +64,20 @@ const AppSidebarNav = defineComponent({
             ...(firstRender.value && {
               visible: item.items.some((child) => isActiveItem(route, child)),
             }),
-            class:'sidebar-nav-item'
           },
           {
             togglerContent: () => [
-              h(resolveComponent('CIcon'), {
-                customClassName: 'nav-icon',
-                name: item.icon,
-              }),
-   
+              item.icon && item.icon.includes('cil-')
+              ? h(resolveComponent('CIcon'), {
+                  customClassName: 'nav-icon sidebar-nav-item',
+                  name: item.icon,
+                })
+              : item.icon && !item.icon.includes('cil-')
+              ?  h('i', {
+                  class: `nav-icon sidebar-nav-item ${item.icon}`,
+                  name: item.icon,
+                })
+              : "",
               item.name,
             ],
               default: () => item.items.map((child) => renderItem(child)),
@@ -111,7 +116,6 @@ const AppSidebarNav = defineComponent({
                             name: item.icon,
                           })
                         : "",
-                        h('span', { class: 'nav-icon' }, h('span', { class: 'nav-icon-bullet' })),
                       item.name,
                       item.badge &&
                         h(

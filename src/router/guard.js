@@ -10,17 +10,30 @@ export async function beforeEachGuard(to, from, next) {
 
     // Fetch the user data if the route requires authentication
     await authStore.getUser();
+    const isUserAuthenticated = authStore.isUserAuthenticated;
+    const isUserVerified = authStore.isUserVerified;
 
-    const isAuthenticated = authStore.isUserAuthenticated && authStore.userName;
-
+    // Prevent infinite loop for the email-verification route
+    if (to.name === 'email-verification') {
+        if (isUserAuthenticated && !isUserVerified) {
+        next(); // Allow access to the email-verification route
+        } else {
+        next({ name: 'dashboard' }); // Redirect to the dashboard if user is verified
+        }
+        return;
+    }
     // Redirect if trying to access a protected route without being authenticated
-    if (to.meta.requiresAuth && !isAuthenticated) {
+    if (to.meta.requiresAuth && !isUserAuthenticated) {
+        // User is not authenticated, redirect to login
         next({ name: 'login' });
-    } else if (isAuthenticated && (to.name === 'login' || to.name === 'register' || to.name === 'reset-password')) {
-        // Redirect authenticated users from login, register, and reset-password to dashboard
+    } else if (to.meta.requiresAuth && isUserAuthenticated && !isUserVerified) {
+        // User is authenticated but not verified, redirect to email verification
+        next({ name: 'email-verification' });
+    } else if (!to.meta.requiresAuth && isUserAuthenticated) {
+        // User is authenticated, prevent access to login route
         next({ name: 'dashboard' });
     } else {
-        next(); // Proceed to the route
+    next();
     }
 }
 

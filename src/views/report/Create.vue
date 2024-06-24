@@ -1,5 +1,5 @@
 <template>
-    <form class="mx-auto border border-gray-300 rounded-lg p-3 mt-5" id="report-form" @submit.prevent="sendReport" enctype="multipart/form-data">
+    <form class="mx-auto border border-gray-300 rounded-lg p-3" id="report-form" @submit.prevent="sendReport" enctype="multipart/form-data">
         <h4 class="text-center">Report</h4>
         <div class="mb-2">
           <label for="type" class="form-label">Type <code>*</code></label>
@@ -65,7 +65,7 @@
         <div class="mb-2">
           <label for="" class="me-2">Upload Proof:</label>
           <div class="d-flex align-items-center">
-            <button type="button" v-if="images.length" class="btn btn-sm" @click="show" title="Preview Images"><i class="bi bi-zoom-in" style="font-size:25px"></i></button>
+           <button type="button" v-if="images.length" class="btn btn-sm" @click="show" title="Preview Images"> <CIcon :icon="cilMagnifyingGlass"/></button>
             <input type="file" id="report-attachments" @change="handleAttachment" multiple  accept=".png, .jpg, .jpeg" class="d-block"/>
             <viewer :images="images" @inited="inited" class="viewer" ref="viewer" :options="viewerOptions">
               <template #default="scope">
@@ -82,15 +82,16 @@
   </template>
     
   <script>
-    import Input from '@js/components/Form/Input.vue'
-    import TextArea from '@js/components/Form/TextArea.vue'
-    import apiClient from '@js/helpers/apiClient.js';
+    import Input from '@/components/Form/Input.vue'
+    import TextArea from '@/components/Form/TextArea.vue'
+    import apiClient from '@/helpers/http/api-client.js';
     import Multiselect from 'vue-multiselect'
     import { useVuelidate } from '@vuelidate/core'
     import { required, maxLength, email } from '@vuelidate/validators';
-    import { checkValidity  } from '@js/helpers/Vuelidate.js';
-    import { sweetAlertNotification } from '@js/helpers/sweetAlert.js';
+    import { checkValidity  } from '@/helpers/validation/vuelidate.js';
+    import { sweetAlertNotification } from '@/helpers/notification/sweetAlert.js';
     import { component as Viewer } from "v-viewer"
+    import { cilMagnifyingGlass,  } from '@coreui/icons';
   
     export default {
       setup () {
@@ -104,6 +105,7 @@
       },
       data() {
         return {
+          cilMagnifyingGlass,
           form:{
             title: '',
             description: '',

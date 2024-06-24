@@ -37,7 +37,13 @@ export default [
               meta:{ parent:true },
               children: [
                 {
-                  path: '',
+                  path: 'create',
+                  component: () => import('@/views/report/Create.vue'),
+                  name: 'Create',
+                  meta: { requiresAuth: true, breadcrumb: 'Create Report' }
+               },
+                {
+                  path: 'monitoring',
                   component: () => import('@/views/report/Index.vue'),
                   name: 'monitoring',
                   meta: { requiresAuth: true }
@@ -50,12 +56,18 @@ export default [
                 },
               ],
             },
-            {
-              path: 'report',
-              name: 'report',
-              component: () =>import('@/views/report/Index.vue')
+            // { 
+            //   path: '/forbidden',
+            //   component: Forbidden, 
+            //   name: 'forbidden', 
+            //   meta: { requiresAuth: true } 
+            // },
+            { 
+              path: '/email-verification', 
+              component: () => import('@/views/authentication/EmailVerification.vue'), 
+              name: 'email-verification', 
+              meta: { requiresAuth: true }
             },
-           
           ],
     },
     {
@@ -67,5 +79,10 @@ export default [
       path: '/register',
       name: 'register',
       component: () => import('@/views/authentication/Register.vue'),
+    },
+    { 
+      path: '/reset-password/:token',
+      component: () => import('@/views/authentication/ResetPasswordConfirmation.vue'),
+      name:'reset-password-confirmation',
     },
   ]

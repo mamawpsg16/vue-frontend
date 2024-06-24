@@ -42,8 +42,8 @@
                 </div>
                 <div class="d-flex align-items-center my-2">
                   <span class="text-body-secondary text-decoration-none">Have an account already?</span>
-                  <CButton  color="link" class="px-0" @click="navigateLogin">
-                    <span class="text-primary"  color="link">&nbsp;Login</span>
+                  <CButton  color="link" class="px-0" @click="navigateLogin" style="text-decoration:none;">
+                      <span class="text-primary"  color="link">&nbsp;Login</span>
                   </CButton>
                 </div>
               </CForm>

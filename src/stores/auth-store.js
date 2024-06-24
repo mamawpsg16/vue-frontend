@@ -16,6 +16,9 @@ export const useAuthStore = defineStore('auth', {
     isUserAuthenticated(state){
       return state.isAuthenticated;
     },
+    isUserBanned(state){
+      return state.user?.isUserBanned;
+    },
     isUserVerified(state){
       return state.user?.isVerified;
     },
@@ -47,12 +50,40 @@ export const useAuthStore = defineStore('auth', {
         });
     },
 
+    async resetPassword(email){
+      await apiClient.get("sanctum/csrf-cookie");
+      return await axios.post('/forgot-password', {
+        email: email,
+      });
+    },
+    
+    async resetPasswordConfirmation(email, password, passwordConfirmation, token){
+        await apiClient.get("sanctum/csrf-cookie");
+        return await apiClient.post('/reset-password/confirmation', {
+          email: email,
+          password: password,
+          password_confirmation : passwordConfirmation,
+          token: token,
+        });
+    },
+
+    async changePassword(password, new_password, new_password_confirmation){
+      try {
+          const response = await apiClient.post('api/user/change-password', {
+            password: password,
+            new_password: new_password,
+            new_password_confirmation:new_password_confirmation
+          });
+          return response;
+        } catch (error) {
+          return error;
+        }
+    },
+
     async logout(){
       try {
           await apiClient.post('/api/logout').then((response =>{
             if(response.status == 200) {
-              this.setAuthenticated(false);
-              this.setUser(null);
               window.location.href = '/login'
             }
           }));

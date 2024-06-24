@@ -2,16 +2,17 @@
   <Modal id="report-conversation-modal" title="Conversation" modal_size="modal-lg">
     <template #content>
       <div class="d-flex justify-content-end align-items-center" title="Actions">
-        <button class="btn btn-sm" type="button" @click="getConversations"><i class="bi bi-arrow-clockwise"  title="Refresh conversation" style="font-size:18px;"></i></button>
-        <button class="btn btn-sm" type="button" @click="reviewNewestReply"><i class="bi bi-chevron-down"  title="Go to newest message" style="font-size:18px;"></i></button>
+        <button class="btn btn-sm" type="button" @click="getConversations"  title="Refresh conversation"><CIcon :icon="cilLoopCircular" /></button>
+        <button class="btn btn-sm" type="button" @click="reviewNewestReply" title="Go to newest message"><i class="fa-solid fa-angles-down"></i></button>
       </div>  
       <div class="comment my-2 comment-container  border rounded p-3" ref="commentContainerRef">
         <!-- <img :src="reply.avatar" class="avatar" alt="User Avatar" /> -->
-        <div class="comment-info" v-for="reply in data" :key="reply.id">
+        <div class="comment-info" v-for="reply in data" :key="reply.id" v-if="data?.length">
           <span class="fw-bold">{{ reply.name }}</span>
           <p>{{ reply.description }}</p>
           <p class="text-secondary text-end mt-3">{{ reply.created_at }}</p>
         </div>
+        <p v-else class="text-center fw-bold mt-2">No Messages Yet</p>
       </div>
       <reply :id="id" inConversation  @fetch-conversations="handleUpdateCoversation"> </reply>
     </template>
@@ -19,10 +20,11 @@
 </template>
   
   <script>
-import Modal from '@js/components/Modal.vue';
+import Modal from '@/components/Modal.vue';
 import reply from './reply.vue';
-import formatter from '@js/helpers/formatter.js';
-import apiClient from '@js/helpers/apiClient.js';
+import formatter from '@/helpers/formatter/transform.js';
+import apiClient from '@/helpers/http/api-client.js';
+import { cilLoopCircular } from '@coreui/icons';
 
   export default {
     name: 'CommentsList',
@@ -44,6 +46,7 @@ import apiClient from '@js/helpers/apiClient.js';
     
     data() {
       return {
+        cilLoopCircular,
         reportId:null,
         data:null
       };

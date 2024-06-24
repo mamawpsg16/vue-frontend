@@ -30,13 +30,14 @@ onMounted(() => {
 
 <template>
   <CBreadcrumb class="my-0">
-    <CBreadcrumbItem
+    <router-link
       v-for="item in breadcrumbs"
-      :key="item"
-      :href="item.active ? '' : item.path"
-      :active="item.active"
+      :key="item.path"
+      :to="item.active ? '' : item.path"
+      :class="{ 'breadcrumb-item': true, active: item.active }"
+      aria-current="item.active ? 'page' : null"
     >
       {{ formatter.capitalizeFirstLetter(getModuleName(item.name)) }}
-    </CBreadcrumbItem>
+    </router-link>
   </CBreadcrumb>
 </template>

@@ -51,6 +51,22 @@ const formatter = {
         return word ? word.charAt(0).toUpperCase() + word.toLowerCase().slice(1) : '';
     },
 
+    capitalizeSplitWord(word, separator = '_'){
+        let parts = word.split(separator);
+        let result = word;
+        if (parts.length === 2) {
+            // Capitalize both parts
+            parts[0] = formatter.capitalizeFirstLetter(parts[0]);
+            parts[1] = formatter.capitalizeFirstLetter(parts[1]);
+    
+            // Join the parts back together (you can choose to join with a space or any other character)
+            let capitalizedProperty = parts.join(' ');
+            result = capitalizedProperty;
+            // Format the message
+        } 
+        return result;
+    },
+
     extractFieldsFromObjects(fields, details) {
         const data = details.map(obj => {
             const newObj = {};
