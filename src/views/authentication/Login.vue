@@ -15,7 +15,7 @@
                     <CInputGroupText>
                       <CIcon icon="cil-user" />
                     </CInputGroupText>
-                    <CFormInput @paste="getErrors('form', 'email', ['required', 'email'])" @input="getErrors('form', 'email', ['required', 'email'])" v-model="form.email"  placeholder="Username" autocomplete="username">
+                    <CFormInput @paste="getErrors('form', 'email', ['required', 'email'])" @input="getErrors('form', 'email', ['required', 'email'])" v-model="form.email"  placeholder="Username"  name="email" autocomplete="email">
                     </CFormInput> 
                   </CInputGroup>
                   <div class="mb-3">
@@ -25,7 +25,7 @@
                     <CInputGroupText>
                       <CIcon icon="cil-lock-locked" />
                     </CInputGroupText>
-                    <CFormInput  @paste="getErrors('form', 'password', ['required', 'minLength'])"  @input="getErrors('form', 'password', ['required', 'minLength'])" v-model="form.password" type="password" placeholder="Password" autocomplete="current-password"/>
+                    <CFormInput  @paste="getErrors('form', 'password', ['required', 'minLength'])"  @input="getErrors('form', 'password', ['required', 'minLength'])" v-model="form.password" name="current-password" type="password" placeholder="Password" autocomplete="current-password"/>
                   </CInputGroup>
                   <div :class="{'mb-3': !isCredentialInvalid}">
                     <span v-for="(error, index) in errors.password" :key="index" :class="{'d-block': errors.password[--index]}" class="text-danger">{{ error }}</span>

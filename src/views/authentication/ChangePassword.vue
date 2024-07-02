@@ -6,7 +6,7 @@
                 <div class="mb-2">
                     <label for="password" class="form-label">Current Password <code>*</code></label>
                     <div class="input-group">
-                        <Input :type="passwordInputType" id="current-password"  class="form-control"  @paste="getErrors(null, 'password', ['required'])" @input="getErrors(null, 'password', ['required'])" tabindex="1" autocomplete="current-password"  placeholder="Enter password" v-model="password" required />
+                        <Input :type="passwordInputType" id="current-password"  class="form-control"  @paste="getErrors(null, 'password', ['required'])" @input="getErrors(null, 'password', ['required'])" tabindex="1" autocomplete="current-password"  name="current-password" placeholder="Enter password" v-model="password" required />
                         <span class="input-group-text" id="basic-addon1">
                             <button type="button" class="btn btn-sm" @click="togglePasswordVisibility()" ><i class="fa-solid fa-eye-slash" id="passwordVisibilityToggle"></i></button>
                         </span>
@@ -18,7 +18,7 @@
                 <div class="mb-2">
                     <label for="password" class="form-label">New Password <code>*</code></label>
                     <div class="input-group">
-                        <Input :type="newPasswordInputType" id="new-password" @paste="getErrors(null, 'new_password', ['required', 'notSameAsPassword', 'minLength'])" @input="getErrors(null, 'new_password', ['required', 'notSameAsPassword', 'minLength'])" tabindex="2" class="form-control" autocomplete="new-password" placeholder="Enter new password" v-model="new_password" required />
+                        <Input :type="newPasswordInputType" id="new-password" @paste="getErrors(null, 'new_password', ['required', 'notSameAsPassword', 'minLength'])" @input="getErrors(null, 'new_password', ['required', 'notSameAsPassword', 'minLength'])" tabindex="2" class="form-control" autocomplete="new-password" name="new-password" placeholder="Enter new password" v-model="new_password" required />
                         <span class="input-group-text" id="basic-addon1">
                             <button type="button" class="btn btn-sm" @click="toggleNewPasswordVisibility()" ><i class="fa-solid fa-eye-slash" id="newPasswordVisibilityToggle"></i></button>
                         </span>
@@ -30,7 +30,7 @@
                 <div class="mb-2">
                     <label for="password" class="form-label">Confirm New Password <code>*</code></label>
                     <div class="input-group">
-                        <Input :type="newPasswordConfirmationInputType" tabindex="3"  @paste="getErrors(null, 'new_password_confirmation', ['required', 'sameAsPassword'])" @input="getErrors(null, 'new_password_confirmation', ['required', 'sameAsPassword'])" id="new-password-confirmation" class="form-control" autocomplete="new-password-confirmation"  placeholder="Enter new password confirmation" v-model="new_password_confirmation" required />
+                        <Input :type="newPasswordConfirmationInputType" tabindex="3"  @paste="getErrors(null, 'new_password_confirmation', ['required', 'sameAsPassword'])" @input="getErrors(null, 'new_password_confirmation', ['required', 'sameAsPassword'])" id="new-password-confirmation" class="form-control" name="new-password-confirmation" autocomplete="new-password-confirmation"  placeholder="Enter new password confirmation" v-model="new_password_confirmation" required />
                         <span class="input-group-text" id="basic-addon1">
                             <button type="button" class="btn btn-sm" @click="toggleNewPasswordConfirmationVisibility()" ><i class="fa-solid fa-eye-slash" id="newPasswordConfirmationVisibilityToggle"></i></button>
                         </span>

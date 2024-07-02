@@ -11,28 +11,28 @@
                 <p class="text-body-secondary">Create your account</p>
                 <CInputGroup>
                   <CInputGroupText><CIcon icon="cil-user" /></CInputGroupText>
-                  <CFormInput v-model="form.name" @paste="getErrors('form', 'name', ['required', 'maxLength'])" @input="getErrors('form', 'name', ['required', 'maxLength'])" placeholder="Name" autocomplete="name" />
+                  <CFormInput v-model="form.name" @paste="getErrors('form', 'name', ['required', 'maxLength'])" @input="getErrors('form', 'name', ['required', 'maxLength'])" placeholder="Name" name="name" autocomplete="name" />
                 </CInputGroup>
                 <div class="mb-3">
                   <span v-for="(error, index) in errors.name" :key="index" :class="{'d-block': errors.name[--index]}" class="text-danger">{{ error }}</span>
                 </div>
                 <CInputGroup>
                   <CInputGroupText>@</CInputGroupText>
-                  <CFormInput @paste="getErrors('form', 'email', ['required', 'email'])" @input="getErrors('form', 'email', ['required', 'email'])" v-model="form.email"  placeholder="Email" autocomplete="email" />
+                  <CFormInput @paste="getErrors('form', 'email', ['required', 'email'])" @input="getErrors('form', 'email', ['required', 'email'])" v-model="form.email"  placeholder="Email" name="email" autocomplete="email" />
                 </CInputGroup>
                 <div class="mb-3">
                   <span v-for="(error, index) in errors.email" :key="index" :class="{'d-block': errors.email[--index]}" class="text-danger">{{ error }}</span>
                 </div>
                 <CInputGroup>
                   <CInputGroupText><CIcon icon="cil-lock-locked" /> </CInputGroupText>
-                  <CFormInput v-model="form.password" @paste="getErrors('form', 'password', ['required', 'minLength'])" @input="getErrors('form', 'password', ['required', 'minLength'])" type="password" placeholder="Password" autocomplete="new-password"/>
+                  <CFormInput v-model="form.password" @paste="getErrors('form', 'password', ['required', 'minLength'])" @input="getErrors('form', 'password', ['required', 'minLength'])" name="new-password" type="password" placeholder="Password" autocomplete="new-password"/>
                 </CInputGroup>
                 <div class="mb-3">
                   <span v-for="(error, index) in errors.password" :key="index" :class="{'d-block': errors.password[--index]}" class="text-danger">{{ error }}</span>
                 </div>
                 <CInputGroup>
                   <CInputGroupText><CIcon icon="cil-lock-locked" /></CInputGroupText>
-                  <CFormInput  v-model="form.password_confirmation" @paste="getErrors('form', 'password_confirmation', ['required', 'sameAsPassword'])" @input="getErrors('form', 'password_confirmation', ['required', 'sameAsPassword'])" type="password" placeholder="Repeat password" autocomplete="new-password"/>
+                  <CFormInput  v-model="form.password_confirmation" @paste="getErrors('form', 'password_confirmation', ['required', 'sameAsPassword'])" @input="getErrors('form', 'password_confirmation', ['required', 'sameAsPassword'])" type="password" name="new-password-confirmation" placeholder="Repeat password" autocomplete="repeat-new-password"/>
                 </CInputGroup>
                 <div class="mb-3">
                   <span v-for="(error, index) in errors.password_confirmation" :key="index" :class="{'d-block': errors.password_confirmation[--index]}" class="text-danger">{{ error }}</span>
@@ -122,7 +122,6 @@ export default{
     }, 500),
 
     async register() {
-      console.log('Register');
       this.isProcessing = true;
       try {
         if (!this.v$.$validate()) return;

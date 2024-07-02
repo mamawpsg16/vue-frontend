@@ -4,7 +4,7 @@
       <form class="mx-auto rounded-lg p-3" @submit.prevent="resendVerificationLink">
           <div class="mb-2">
               <label for="email" class="form-label">Email</label>
-              <Input type="email" id="reset-password-email" autocomplete="email" @paste="getErrors(null, 'email', ['required', 'email'])" @input="getErrors(null, 'email', ['required', 'email'])" class="form-control py-2" placeholder="Enter email" v-model="email" required/>
+              <Input type="email" id="reset-password-email" name="email" autocomplete="email" @paste="getErrors(null, 'email', ['required', 'email'])" @input="getErrors(null, 'email', ['required', 'email'])" class="form-control py-2" placeholder="Enter email" v-model="email" required/>
               <div class="mb-3">
                 <span v-for="(error, index) in errors.email" :key="index" :class="{'d-block': errors.email[--index]}" class="text-danger">{{ error }}</span>
               </div>
