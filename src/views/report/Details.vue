@@ -1,9 +1,15 @@
 <template>
    <div class="mx-auto border border-gray-300 rounded-lg p-3" >
         <div class="d-flex justify-content-between">
-            <button class="btn btn-sm text-center mb-2 px-2" title="Conversations" @click="showConversation()" :disabled="!details.length <= 0"><CIcon :icon="cilEnvelopeClosed" /></button>
+            <button class="btn btn-sm text-center" title="Conversations" @click="showConversation()" :disabled="!details.length <= 0"><i class="fa-regular fa-envelope" style="font-size:25px"></i></button>
             <h4>Report</h4>
-            <span></span>
+            <div>
+                <button v-if="isNotResolved" class="btn btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis" style="font-size:25px"></i></button>
+                <ul class="dropdown-menu">
+                    <li><button class="dropdown-item" type="button"  @click="updateStatus">Resolved</button></li>
+                </ul>
+            </div>
+   
         </div>
         <div class="mb-2">
             <label for="type" class="form-label">Type </label>
@@ -48,6 +54,7 @@ import conversations from './components/conversations.vue';
 import { checkValidity  } from '@/helpers/validation/vuelidate.js';
 import { useVuelidate } from '@vuelidate/core'
 import reply from './components/reply.vue';
+import { sweetAlertNotification } from  '@/helpers/notification/sweetAlert.js';
     export default {
         setup () {
             return { v$: useVuelidate({ $autoDirty : true, $lazy: true}) }
@@ -63,27 +70,7 @@ import reply from './components/reply.vue';
             return{
                 cilMagnifyingGlass,cilEnvelopeClosed,
                 viewerOptions:viewerOptions,
-                comments: [
-                    { id: 1, author: 'Alice', text: 'This is a great post!', date: '2023-06-11' },
-                    { id: 2, author: 'Bob', text: 'I learned a lot from this article.', date: '2023-06-10' },
-                    { id: 3, author: 'Alice', text: 'Thanks for the feedback!', date: '2023-06-12' },
-                    { id: 4, author: 'Bob', text: 'You\'re welcome!', date: '2023-06-13' },
-                ],
                 images:[],
-                // editor: ClassicEditor,
-                editorData: "",
-                editorConfig: {
-                    toolbar: ['heading', '|', 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote'],
-                    heading: {
-                        options: [
-                            { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                            { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-                            { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
-                        ]
-                    },
-                    language: 'en',
-                    placeholder: 'Start typing here...',
-                },
                 details:{},
                 replies:[]
             }
@@ -92,6 +79,9 @@ import reply from './components/reply.vue';
         computed:{
             isAccountType() {
                 return this.details.type && this.details.type.account;
+            },
+            isNotResolved() {
+                return !this.details.resolved_at;
             },
         },
 
@@ -138,6 +128,23 @@ import reply from './components/reply.vue';
                     }
                     this.details = formattedData;
                 }
+            },
+
+            async updateStatus(){
+                try {
+                    const response = await apiClient.put(`/api/reports/update-status/${this.details.id}`, null);
+                    if(response.status == 200){
+                        const formattedData = this.formatData(response.data.data);
+                        if(formattedData.attachments.length > 0){
+                            this.getAttachments(formattedData.attachments);
+                        }
+                        this.details = formattedData;
+                        sweetAlertNotification("Report resolved", "", "success");
+                    }
+                } catch (error) {
+                    console.error(error,'error')                    
+                }
+             
             },
 
             formatConversation(data){

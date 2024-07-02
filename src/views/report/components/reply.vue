@@ -13,7 +13,7 @@
                 Message must only contain 1000 characters.
                 </span>
             </div>
-        <button class="btn btn-sm form-control bg-success-subtle my-2"   :disabled="isSending">{{  isSending ? 'Sending' : 'Send' }}</button>
+        <button class="btn btn-sm form-control text-black fw-semibold bg-success-subtle my-2"   :disabled="isSending">{{  isSending ? 'Sending' : 'Send' }}</button>
     </form>
 </template>
 

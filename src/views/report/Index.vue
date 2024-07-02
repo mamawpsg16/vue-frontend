@@ -5,6 +5,7 @@
             <div class="d-flex justify-content-center align-items-center border border-dark-subtle rounded" title="Actions">
                 <button class="btn btn-sm" type="button" @click="getData(true)"><CIcon :icon="cilLoopCircular" /></button>
                 <button class="btn btn-sm" type="button" @click="showFilter"><CIcon :icon="cilFilter" /></button>
+                <router-link :to="{ name:'report-create' }" class="btn btn-sm" title="Create Report"> <CIcon :icon="cilPlus" /></router-link>
             </div>
         </template>
         <template #content="{ row, column, index, formattedRow }">
@@ -22,7 +23,7 @@
 </template>
 
 <script>
-import { cilLoopCircular, cilFilter, cilCloudDownload } from '@coreui/icons';
+import { cilLoopCircular, cilFilter, cilCloudDownload, cilPlus } from '@coreui/icons';
 import VueGoodTable from '@/components/VueGoodTable/index.vue';
 import formatter  from '@/helpers/formatter/transform.js';
 import apiClient from '@/helpers/http/api-client.js';
@@ -41,6 +42,7 @@ import { customDeepClone } from '@/helpers/clone/index.js';
                 cilLoopCircular,
                 cilFilter,
                 cilCloudDownload,
+                cilPlus,
                 columns: [
                     {
                         label: 'Action',
@@ -50,6 +52,11 @@ import { customDeepClone } from '@/helpers/clone/index.js';
                     {
                         label: 'Type',
                         field: 'report_type',
+                        width: '200px',
+                    },
+                    {
+                        label: 'Status',
+                        field: 'resolved_status',
                         width: '200px',
                     },
                     {
@@ -108,10 +115,24 @@ import { customDeepClone } from '@/helpers/clone/index.js';
                 };
             },
 
+            getReportStatus(read_at = null, resolved_at = null){
+                const statuses = ['Pending', 'Reviewed', 'Resolved'];
+                if(!read_at){
+                    return statuses[0];
+                }
+                if(read_at && !resolved_at){
+                    return statuses[1];
+                }
+                if(read_at && resolved_at){
+                    return statuses[2];
+                }
+            },
             formatData(data){
                 return {
                     ...data,
                     title: formatter.capitalizeFirstLetter(data.title), 
+                    resolved_status: this.getReportStatus(data.read_at, data.resolved_at),
+                    description: formatter.truncateString(data.description),
                     report_type: formatter.capitalizeFirstLetter(data.report_type), 
                     created_at: formatter.formatReadableDateTime(data.created_at), 
                     updated_at: formatter.formatReadableDateTime(data.updated_at), 

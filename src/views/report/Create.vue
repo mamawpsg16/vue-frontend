@@ -34,7 +34,7 @@
         </div>
         <div class="mb-2">
             <label for="title" class="form-label" >Title <code>*</code></label>
-            <Input type="title" id="title" autocomplete="title" :class="{ 'border border-danger': checkInputValidity('form', 'title', ['required', 'maxLength']) || errors?.title }" class="form-control py-2" placeholder="Enter title" v-model="form.title"/>
+            <Input type="title" id="title" name="title" autocomplete="title" :class="{ 'border border-danger': checkInputValidity('form', 'title', ['required', 'maxLength']) || errors?.title }" class="form-control py-2" placeholder="Enter title" v-model="form.title"/>
             <div v-if="errors?.title" class="text-danger">
                 {{ errors?.title[0] }}
             </div>
