@@ -6,14 +6,30 @@ import router from '@/router'
 const breadcrumbs = ref()
 
 const getBreadcrumbs = () => {
-  return router.currentRoute.value.matched.map((route) => {
-    return {
-      active: (route.path === router.currentRoute.value.fullPath || route.meta.parent),
-      name: route.name,
-      path: `${router.options.history.base}${route.path}`,
+  const routes = router.currentRoute.value.matched
+    .filter(route => route.meta.breadcrumb)
+    .map(route => {
+      return {
+        active: (route.path === router.currentRoute.value.fullPath || route.meta.parent),
+        name: route.meta.breadcrumb,
+        path: `${router.options.history.base}${route.path}`,
+      };
+    });
+
+  // Use a Set to track unique 'name' and 'path' combinations
+  const seen = new Set();
+  const uniqueRoutes = routes.filter(route => {
+    const key = `${route.name}:${route.path}`;
+    if (seen.has(key)) {
+      return false;
+    } else {
+      seen.add(key);
+      return true;
     }
-  })
-}
+  });
+
+  return uniqueRoutes;
+};
 
 router.afterEach(() => {
   breadcrumbs.value = getBreadcrumbs()
