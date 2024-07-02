@@ -122,7 +122,6 @@ import { sweetAlertNotification, sweetAlertConfirmation } from '@/helpers/notifi
                         sweetAlertNotification(response.data.message);
                     }
                 } catch (error) {
-                    console.log(error,'error');
                     sweetAlertNotification("Error restoring tasks. Please try again.", "", "error");
                 }
             },

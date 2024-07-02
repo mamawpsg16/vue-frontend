@@ -8,10 +8,10 @@
         <CIcon :icon="cilPlus" />
       </button>
       <button type="button" class="btn btn-primary text-white me-2" @click="showCompletedTasks" title="View Completed Tasks">
-       <i class="bi bi-list-check"></i><CIcon :icon="cilListNumberedRtl" />
+       <CIcon :icon="cilListNumberedRtl" />
       </button>
       <button type="button" class="btn btn-info text-white me-2" v-if="showSaveOrderBtn && (pendingCount || ongoingCount)" @click="updateTasksOrder"  title="Save order changes">
-       <i class="bi bi-floppy"></i><CIcon :icon="cilSave" />
+      <CIcon :icon="cilSave" />
       </button>
     </div>
     <div class="col-md-6">

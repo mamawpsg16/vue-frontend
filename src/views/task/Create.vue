@@ -13,7 +13,7 @@
                 </div>
                 <div id="task_name" class="mb-2">
                     <label for="">Name <code>*</code></label>
-                    <Input type="text" id="name" class="input" placeholder="Enter task" v-model="task.name" :class="{'border border-danger': checkInputValidity('task', 'name', ['required'])}"  />
+                    <Input type="text" id="name" name="organization-title" autocomplete="organization-title" class="input" placeholder="Enter task" v-model="task.name" :class="{'border border-danger': checkInputValidity('task', 'name', ['required'])}"  />
                     <div class="text-danger">
                         <span v-if="v$.task.name.required.$invalid">
                             Task Name field is required.
