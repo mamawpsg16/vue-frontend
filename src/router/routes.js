@@ -11,48 +11,55 @@ export default [
             { 
               path: '/admin',
               name: 'Admin',
-              meta:{ parent:true },
               children: [
                 {
                   path: 'users',
                   component: () => import('@/views/admin/user/Index.vue'),
                   name: 'admin-users',
-                  meta: { requiresAuth: true }
+                  meta: { requiresAuth: true,  breadcrumb:'Users' }
+                },
+                {
+                  path: 'menus',
+                  component: () => import('@/views/admin/menu/Index.vue'),
+                  name: 'admin-menus',
+                  meta: { requiresAuth: true,  breadcrumb:'Menus' }
                 },
               ],
             },
             {
               path: 'dashboard',
               name: 'dashboard',
-              component: () =>import('@/views/dashboard/Dashboard.vue')
+              component: () =>import('@/views/dashboard/Dashboard.vue'),
+              meta: { breadcrumb:'Dashboard' },
             },
             {
-              path: 'task',
-              name: 'task',
+              path: 'tasks',
+              name: 'tasks',
               component: () => import('@/views/task/Index.vue'),
+              meta: { breadcrumb:'Tasks' },
             },
             {
               path: '/report',
-              name: 'Report',
-              meta:{ parent:true },
+              name: 'report',
+              meta: { breadcrumb:'Report' },
               children: [
+                {
+                  path: '',
+                  component: () => import('@/views/report/Index.vue'),
+                  name: 'home',
+                  meta: { requiresAuth: true, breadcrumb:'Report' },
+                },
                 {
                   path: 'create',
                   component: () => import('@/views/report/Create.vue'),
-                  name: 'Create',
-                  meta: { requiresAuth: true, breadcrumb: 'Create Report' }
-               },
-                {
-                  path: 'monitoring',
-                  component: () => import('@/views/report/Index.vue'),
-                  name: 'monitoring',
-                  meta: { requiresAuth: true }
+                  name: 'report-create',
+                  meta: { requiresAuth: true, breadcrumb: 'Create' }
                 },
                 {
                   path: ':uuid',
                   component: () => import('@/views/report/Details.vue'),
                   name: 'report-details',
-                  meta: { requiresAuth: true }
+                  meta: { requiresAuth: true, breadcrumb:'Details'  }
                 },
               ],
             },
