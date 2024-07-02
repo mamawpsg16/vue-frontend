@@ -1,7 +1,5 @@
 import axios from 'axios';
-import setupInterceptors from './axios-intercepter';
 
-setupInterceptors(); // Initialize the interceptor
 axios.defaults.withXSRFToken = true; 
 axios.defaults.withCredentials = true; 
 axios.defaults.baseURL = "http://localhost:8000"; 

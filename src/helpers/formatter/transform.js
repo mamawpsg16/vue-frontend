@@ -91,6 +91,14 @@ const formatter = {
         const day = String(date.getDate()).padStart(2, '0');
 
         return `${year}-${month}-${day}`;
+    },
+
+    truncateString(str, maxLength = 20) {
+        if (str.length > maxLength) {
+            return str.slice(0, maxLength) + '...';
+        } else {
+            return str;
+        }
     }
 }
 

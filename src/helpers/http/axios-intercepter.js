@@ -8,7 +8,6 @@ function setupInterceptors() {
             return response;
         },
         function (error) {
-            console.log('Error interceptor triggered', error.response); // Add logging
             if (error.response) {
                 const currentPath = window.location.pathname;
 
